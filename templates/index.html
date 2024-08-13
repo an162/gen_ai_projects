@@ -4,33 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Language Translation Tool</title>
+    <style>
+        :root {
+            --background-color-light: #f4f4f9;
+            --text-color-light: #333;
+            --background-color-dark: #1e1e1e;
+            --text-color-dark: #f4f4f9;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea, select, input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .dark-mode {
+            --background-color-light: var(--background-color-dark);
+            --text-color-light: var(--text-color-dark);
+        }
+
+        .toggle-mode {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-mode button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .toggle-mode button:hover {
+            background-color: #0056b3;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        p {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-    <h1>Language Translation Tool</h1>
-    <form method="POST">
-        <label for="source_text">Text to translate:</label><br>
-        <textarea id="source_text" name="source_text" rows="4" cols="50"></textarea><br><br>
+    <div class="container">
+        <h1>Language Translation Tool</h1>
         
-        <label for="src_lang">Source Language:</label>
-        <select id="src_lang" name="src_lang">
-            {% for code, lang in languages.items() %}
-            <option value="{{ code }}">{{ lang }}</option>
-            {% endfor %}
-        </select><br><br>
+        <div class="toggle-mode">
+            <button id="toggle-button">Switch to Dark Mode</button>
+        </div>
+
+        <form method="POST">
+            <label for="source_text">Text to translate:</label><br>
+            <textarea id="source_text" name="source_text" rows="4" cols="50"></textarea><br><br>
+            
+            <label for="src_lang">Source Language:</label>
+            <select id="src_lang" name="src_lang">
+                {% for code, lang in languages.items() %}
+                <option value="{{ code }}">{{ lang }}</option>
+                {% endfor %}
+            </select><br><br>
+            
+            <label for="tgt_lang">Target Language:</label>
+            <select id="tgt_lang" name="tgt_lang">
+                {% for code, lang in languages.items() %}
+                <option value="{{ code }}">{{ lang }}</option>
+                {% endfor %}
+            </select><br><br>
+            
+            <input type="submit" value="Translate">
+        </form>
         
-        <label for="tgt_lang">Target Language:</label>
-        <select id="tgt_lang" name="tgt_lang">
-            {% for code, lang in languages.items() %}
-            <option value="{{ code }}">{{ lang }}</option>
-            {% endfor %}
-        </select><br><br>
-        
-        <input type="submit" value="Translate">
-    </form>
-    
-    {% if translated_text %}
-    <h2>Translated Text:</h2>
-    <p>{{ translated_text }}</p>
-    {% endif %}
+        {% if translated_text %}
+        <h2>Translated Text:</h2>
+        <p>{{ translated_text }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        const toggleButton = document.getElementById('toggle-button');
+        const body = document.body;
+
+        toggleButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                toggleButton.textContent = 'Switch to Light Mode';
+            } else {
+                toggleButton.textContent = 'Switch to Dark Mode';
+            }
+        });
+    </script>
 </body>
 </html>
