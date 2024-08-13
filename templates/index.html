@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Translation Tool</title>
+</head>
+<body>
+    <h1>Language Translation Tool</h1>
+    <form method="POST">
+        <label for="source_text">Text to translate:</label><br>
+        <textarea id="source_text" name="source_text" rows="4" cols="50"></textarea><br><br>
+        
+        <label for="src_lang">Source Language:</label>
+        <select id="src_lang" name="src_lang">
+            {% for code, lang in languages.items() %}
+            <option value="{{ code }}">{{ lang }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <label for="tgt_lang">Target Language:</label>
+        <select id="tgt_lang" name="tgt_lang">
+            {% for code, lang in languages.items() %}
+            <option value="{{ code }}">{{ lang }}</option>
+            {% endfor %}
+        </select><br><br>
+        
+        <input type="submit" value="Translate">
+    </form>
+    
+    {% if translated_text %}
+    <h2>Translated Text:</h2>
+    <p>{{ translated_text }}</p>
+    {% endif %}
+</body>
+</html>
