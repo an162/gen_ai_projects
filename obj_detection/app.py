@@ -3,7 +3,7 @@ import torch
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s')  # Load YOLOv5 small model
 import cv2
 
-cap = cv2.VideoCapture(0)  # Use 0 for webcam or provide the path to a video file
+cap = cv2.VideoCapture(0)  
 
 while True:
     ret, frame = cap.read()
