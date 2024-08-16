@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900">
+    <div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
+        <h1 class="text-3xl font-bold mb-6 text-center">FAQ Chatbot</h1>
+        <form action="/" method="POST" enctype="multipart/form-data" class="mb-6">
+            <label for="pdf_file" class="block text-lg font-medium text-gray-700">Upload PDF:</label>
+            <input type="file" id="pdf_file" name="pdf_file" class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm">
+            <input type="submit" value="Analyze PDF" class="mt-4 w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md shadow-md hover:bg-blue-600">
+        </form>
+
+        {% if faqs %}
+        <hr class="my-6">
+        <h2 class="text-2xl font-semibold mb-4">Ask a Question:</h2>
+        <form action="/chat" method="POST" class="mb-6">
+            <label for="question" class="block text-lg font-medium text-gray-700">Question:</label>
+            <input type="text" id="question" name="question" class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm" placeholder="Type your question here">
+            <input type="submit" value="Ask" class="mt-4 w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-md shadow-md hover:bg-green-600">
+        </form>
+        
+        <hr class="my-6">
+        <h3 class="text-xl font-semibold mb-4">FAQ Answers:</h3>
+        <ul class="list-disc list-inside">
+            {% for question, answer in faqs.items() %}
+            <li class="mb-2"><strong>{{ question }}</strong>: {{ answer }}</li>
+            {% endfor %}
+        </ul>
+        
+        {% if answer %}
+        <hr class="my-6">
+        <h3 class="text-xl font-semibold mb-4">Answer:</h3>
+        <p class="text-lg">{{ answer }}</p>
+        {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>

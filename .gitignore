@@ -1,0 +1,5 @@
+.venv/
+faq_chatbot/venv
+faq_chatbot/venv/Lib
+faq_chatbot/venv/Scripts
+faq_chatbot/venv/Include
